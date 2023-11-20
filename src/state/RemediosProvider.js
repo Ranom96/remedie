@@ -3,7 +3,7 @@ import {
   listarRemedios,
   addRemedio,
   deleteRemedio,
-} from "../services/RemediosService";
+} from "../services/RemedioService";
 
 const RemediosContext = createContext({
   remedios: [],
