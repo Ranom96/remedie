@@ -1,35 +1,49 @@
-import * as React from 'react'
-import { SafeAreaView, Text, ScrollView, View  } from 'react-native'
-import { Button } from 'react-native-paper'
-import Header from '../components/Header'
-import TextInputComponent from '../components/TextInputComponent'
-import TimeInput from '../components/TimeInput'
+import { SafeAreaView, Text, ScrollView, View } from "react-native";
+import { Button } from "react-native-paper";
+import Header from "../components/Header";
+import TextInputComponent from "../components/TextInputComponent";
+import TimeInput from "../components/TimeInput";
 
-
-export default function RemediosCadastrar({props, navigation}) {
+export default function RemediosCadastrar({ props, navigation }) {
   const TextStyle = {
     fontSize: 32,
-    textAlign: 'center',
-    fontWeight: '400',
+    textAlign: "center",
+    fontWeight: "400",
     marginHorizontal: 24,
-    paddingTop: 16
-
-  }
+    paddingTop: 16,
+  };
 
   return (
     <SafeAreaView>
-      <Header title='Remédios' />
+      <Header title="Remédios" />
       <ScrollView>
         <Text style={TextStyle}>Cadastre seus remédios</Text>
-        <TextInputComponent label="Medicamento" descricao='Insira o nome do remédio' placeholder='Nome' />
-        <TextInputComponent label="Dosagem" descricao='Qual é a dosagem? Ex: 1 dose = 2 capsulas' placeholder='Nome' />
+        <TextInputComponent
+          label="Medicamento"
+          descricao="Insira o nome do remédio"
+          placeholder="Nome"
+        />
+        <TextInputComponent
+          label="Dosagem"
+          descricao="Qual é a dosagem? Ex: 1 dose = 2 capsulas"
+          placeholder="Nome"
+        />
         <TimeInput label="Horário do remédio" />
-        <SafeAreaView style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-            <Button textColor='red' onPress={() => navigation.navigate("Remédios")}>cancelar</Button>
-            <Button textColor='#007AFF' onPress={() => { }}>Salvar</Button>
+        <SafeAreaView
+          style={{ flexDirection: "row", justifyContent: "space-around" }}
+        >
+          <Button
+            textColor="red"
+            onPress={() => navigation.navigate("Remédios")}
+          >
+            cancelar
+          </Button>
+          <Button textColor="#007AFF" onPress={() => {}}>
+            Salvar
+          </Button>
         </SafeAreaView>
-        <View style={{ marginBottom: 100 }} /> 
+        <View style={{ marginBottom: 100 }} />
       </ScrollView>
     </SafeAreaView>
-  )
+  );
 }

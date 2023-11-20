@@ -2,7 +2,7 @@ import Home from "../screens/Home";
 import Remedios from "../screens/Remedios";
 import Consultas from "../screens/Consultas";
 import Exames from "../screens/Exames";
-import Login from "../screens/Login/Login";
+import Login from "../screens/Login";
 import ConsultasCadastrar from "../screens/ConsultasCadastrar";
 import RemediosCadastrar from "../screens/RemediosCadastrar";
 
@@ -15,8 +15,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import RegisterUser from "../screens/RegisterUser/RegisterUser";
-import ForgotPassword from "../screens/ForgotPassword/ForgotPassword";
+import RegistrarUsuario from "../screens/RegistrarUsuario";
+import ForgotPassword from "../screens/ForgotPassword";
 import ExamesCadastrar from "../screens/ExamesCadastrar";
 
 const { Navigator, Screen } = createBottomTabNavigator();
@@ -39,7 +39,7 @@ export default function NavBar() {
         headerTitleStyle: {
           fontSize: 32,
         },
-        headerTitle: (title = "Remedie"),
+        headerTitle: { title: "Remedie" },
         headerTitleAlign: "center",
       }}
     >
@@ -96,7 +96,7 @@ export default function NavBar() {
       />
       <Screen
         name="Register"
-        component={RegisterUser}
+        component={RegistrarUsuario}
         options={{
           headerShown: true,
           tabBarItemStyle: { display: "none" },

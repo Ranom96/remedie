@@ -1,13 +1,9 @@
-import * as React from "react";
 import { SafeAreaView, Text, ScrollView, View } from "react-native";
 import { Button } from "react-native-paper";
 import Header from "../components/Header";
 import TextInputComponent from "../components/TextInputComponent";
-import BotaoAdicionarImagem from "../components/BotaoAdicionarImagem";
 import TimeInput from "../components/TimeInput";
 import DateInput from "../components/DateInput";
-
-//TODO: #34 #33 Resolver Conflito de Pull Request
 
 export default function ConsultasCadastrar({ props, navigation }) {
   const TextStyle = {
