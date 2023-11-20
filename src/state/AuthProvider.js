@@ -18,9 +18,9 @@ export const AuthProvider = ({ children }) => {
   const handleLogin = async (data) => {
     try {
       const res = await login(data.email, data.senha);
-      console.log(res);
+      setCurrentUser({ userId: res.user.uid, logado: true });
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   };
 

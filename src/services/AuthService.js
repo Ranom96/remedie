@@ -22,11 +22,13 @@ export const login = async (email, senha) => {
     const res = await signInWithEmailAndPassword(auth, email, senha);
     if (res) {
       return res;
-    } else {
-      throw res;
     }
   } catch (error) {
-    return error;
+    if (error.code == "auth/invalid-login-credentials") {
+      throw "Credenciais inválidas";
+    } else {
+      throw error;
+    }
   }
 };
 
@@ -37,7 +39,7 @@ export const register = async (email, senha) => {
       await logout();
       return res;
     } else {
-      throw err;
+      throw res;
     }
   } catch (error) {
     throw error;

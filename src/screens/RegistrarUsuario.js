@@ -84,7 +84,7 @@ const RegistrarUsuario = ({ navigation }) => {
         )}
         name="senha"
       />
-
+      {errors.senha && <Text>{errors.senha.message}</Text>}
       <Button
         style={styles.buttonStyle}
         mode="contained"
