@@ -1,43 +1,91 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { SafeAreaView, TouchableOpacity } from "react-native";
 import { StyleSheet } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native";
+import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { AuthContext } from "../state/AuthProvider";
+import * as yup from "yup";
+// TODO: #47 Implementar lógica para login de usuário @Kievv
+
+const schema = yup.object().shape({
+  email: yup
+    .string()
+    .required("O campo precisa ser preenchido")
+    .matches(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i, "Email inválido"),
+  senha: yup
+    .string()
+    .required("O campo precisa ser preenchido")
+    .min(6, "A senha deve conter ao menos 6 caracteres"),
+});
 
 const Login = ({ navigation, logar }) => {
-  const [login, setLogin] = useState("");
-  const [password, setPassword] = useState("");
+  const { handleLogin } = useContext(AuthContext);
 
-  const handleLogin = () => {
-    logar;
-    navigation.navigate("Home");
+  const Entrar = async (formData) => {
+    try {
+      await handleLogin(formData);
+      navigation.navigate("Home");
+    } catch (error) {
+      console.log("Login página", error);
+    }
   };
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      email: "",
+      senha: "",
+    },
+  });
 
   return (
     <SafeAreaView style={styles.containerStyle}>
       <Text style={styles.welcomeText} variant="headlineLarge">
         Bem vindo ao Remedie
       </Text>
-      <TextInput
-        mode="outlined"
-        outlineStyle={{ backgroundColor: "transparent" }}
-        outlineColor="#005AFF"
-        activeOutlineColor="#005AFF"
-        style={styles.textSpacer}
-        label={"Login"}
-        value={login}
-        onChangeText={(text) => setLogin(text)}
+
+      <Controller
+        control={control}
+        render={({ field: { onChange, value } }) => (
+          <TextInput
+            mode="outlined"
+            outlineStyle={{ backgroundColor: "transparent" }}
+            outlineColor="#005AFF"
+            activeOutlineColor="#005AFF"
+            style={styles.textSpacer}
+            label="Email"
+            value={value}
+            onChangeText={onChange}
+            placeholder="Email"
+          />
+        )}
+        name="email"
       />
-      <TextInput
-        mode="outlined"
-        outlineStyle={{ backgroundColor: "transparent" }}
-        outlineColor="#005AFF"
-        activeOutlineColor="#005AFF"
-        style={styles.textSpacer}
-        label={"Senha"}
-        value={password}
-        onChangeText={(text) => setPassword(text)}
+      {errors.email && <Text>{errors.email.message}</Text>}
+
+      <Controller
+        control={control}
+        render={({ field: { onChange, value } }) => (
+          <TextInput
+            mode="outlined"
+            outlineStyle={{ backgroundColor: "transparent" }}
+            outlineColor="#005AFF"
+            activeOutlineColor="#005AFF"
+            style={styles.textSpacer}
+            value={value}
+            onChangeText={onChange}
+            label="Senha"
+            secureTextEntry={true}
+            placeholder="Senha"
+          />
+        )}
+        name="senha"
       />
+      {errors.senha && <Text>{errors.senha.message}</Text>}
       <TouchableOpacity onPress={() => navigation.navigate("ForgotPassword")}>
         <Text
           style={[styles.passResetColor, styles.textSpacer]}
@@ -46,7 +94,11 @@ const Login = ({ navigation, logar }) => {
           Esqueci minha senha
         </Text>
       </TouchableOpacity>
-      <Button style={styles.buttonStyle} mode="contained" onPress={handleLogin}>
+      <Button
+        style={styles.buttonStyle}
+        mode="contained"
+        onPress={handleSubmit(Entrar)}
+      >
         Entrar
       </Button>
       <Text

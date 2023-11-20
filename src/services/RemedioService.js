@@ -12,15 +12,10 @@ export const listarRemedios = async () => {
 
   try {
     const res = await getDocs(collection(db, "remedios"));
-    if (res) {
-      res.forEach((doc) => {
-        remedios.push({ key: doc.id, ...doc.data() });
-      });
-      console.log(remedios);
-      return remedios;
-    } else {
-      return "Nenhum remédio cadastrado";
-    }
+    res.forEach((doc) => {
+      remedios.push({ key: doc.id, ...doc.data() });
+    });
+    return remedios;
   } catch (error) {
     console.log(error);
   }
@@ -28,14 +23,15 @@ export const listarRemedios = async () => {
 
 export const addRemedio = async (data, userId) => {
   try {
-    const res = await addDoc(collection(db, "reemedios"), {
+    await addDoc(collection(db, "remedios"), {
       medicamento: data.medicamento,
       dosagem: data.dosagem,
       horario: data.horario,
+      tomado: false,
       userId: userId,
     });
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 
