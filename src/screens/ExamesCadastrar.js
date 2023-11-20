@@ -7,7 +7,7 @@ import TimeInput from '../components/TimeInput'
 import DateInput from '../components/DateInput'
 
 
-export default function ConsultasCadastrar({props, navigation}) {
+export default function ExamesCadastrar({props, navigation}) {
   const TextStyle = {
     fontSize: 32,
     textAlign: 'center',
@@ -18,15 +18,16 @@ export default function ConsultasCadastrar({props, navigation}) {
 
   return (
     <SafeAreaView>
-      <Header title='Consultas' />
+      <Header title='Exames' />
       <ScrollView>
-        <Text style={TextStyle}>Cadastre suas consultas</Text>
-        <DateInput label="Data" descricao="Insira a data da consulta" />
+        <Text style={TextStyle}>Cadastre seus exames</Text>
+        <DateInput label="Data" descricao="Insira a data do exame" />
         <TextInputComponent label="Local" descricao='Insira o nome do hospital/clínica' placeholder='Nome' />
-        <TextInputComponent label="Médico" descricao='Insira o nome do seu médico' placeholder='Nome' />
+        <TextInputComponent label="Especialidade" descricao='Insira a especialidade do exame' placeholder='Nome' />
+        <TextInputComponent label="Exame" descricao='Insira o nome do exmae' placeholder='Nome' />
         <TimeInput label="Horário da consulta" />
         <SafeAreaView style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-            <Button textColor='red' onPress={() => navigation.navigate("Consultas")}>cancelar</Button>
+            <Button textColor='red' onPress={() => navigation.navigate("Exames")}>cancelar</Button>
             <Button textColor='#007AFF' onPress={() => { }}>Salvar</Button>
         </SafeAreaView>
         <View style={{ marginBottom: 100 }} /> 

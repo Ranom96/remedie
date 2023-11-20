@@ -3,9 +3,8 @@ import { SafeAreaView, Text, ScrollView, View  } from 'react-native'
 import { Button } from 'react-native-paper'
 import Header from '../components/Header'
 import TextInputComponent from '../components/TextInputComponent'
-import BotaoAdicionarImagem from '../components/BotaoAdicionarImagem'
 import TimeInput from '../components/TimeInput'
-import BotaoCancelarSalvar from '../components/BotaoCancelarSalvar'
+
 
 export default function RemediosCadastrar({props, navigation}) {
   const TextStyle = {
