@@ -21,15 +21,16 @@ export const listarRemedios = async () => {
   }
 };
 
-export const addRemedio = async (data, userId) => {
+export const addRemedio = async (data) => {
   try {
     await addDoc(collection(db, "remedios"), {
       medicamento: data.medicamento,
       dosagem: data.dosagem,
       horario: data.horario,
       tomado: false,
-      userId: userId,
+      userId: data.userId,
     });
+    console.log("chega aqui");
   } catch (error) {
     throw error;
   }
