@@ -8,21 +8,18 @@ import ExibirRemedios from "../components/ExibirRemedios";
 
 export default function Remedios({ props, navigation }) {
   const { userId } = useContext(AuthContext);
-  const { remedios, listRemedios } = useContext(RemediosContext);
+  const { remedios, listarRemedios } = useContext(RemediosContext);
   const [loading, setLoading] = useState(true);
-  const [meusRemedios, setMeusRemedios] = useState([]);
 
   useEffect(() => {
     async function carregarRemedios() {
       setLoading(true);
-      const res = await listRemedios();
-
-      setMeusRemedios(res);
+      await listarRemedios();
       setLoading(false);
     }
-
     carregarRemedios();
-  }, []);
+  }, [remedios.length]);
+
   console.log("estado de remedios", remedios);
   const remediosFilter = remedios.filter(
     (remedio) => remedio.userId === userId

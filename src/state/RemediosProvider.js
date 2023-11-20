@@ -7,7 +7,7 @@ import {
 
 const RemediosContext = createContext({
   remedios: [],
-  list: () => {},
+  listarRemedios: () => {},
   addRemedio: () => {},
   removerRemedio: () => {},
 });
@@ -28,7 +28,6 @@ export function RemediosProvider({ children }) {
     try {
       const data = await listarRemedios();
       setMeusRemedios([...data]);
-      return data;
     } catch (err) {
       throw err.message;
     }
@@ -48,7 +47,7 @@ export function RemediosProvider({ children }) {
   const contexto = {
     remedios: meusRemedios,
     addRemedio: inserir,
-    listRemedios: list,
+    listarRemedios: list,
     removerRemedio: remover,
   };
 

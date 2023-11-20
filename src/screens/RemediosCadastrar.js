@@ -7,7 +7,6 @@ import { useContext } from "react";
 import RemediosContext from "../state/RemediosProvider";
 import { AuthContext } from "../state/AuthProvider";
 import * as yup from "yup";
-import { addRemedio } from "../services/RemedioService";
 
 //TODO: #52 Implementar cadastro de remédios @Kievv
 
@@ -27,7 +26,7 @@ const schema = yup.object().shape({
 });
 
 export default function RemediosCadastrar({ props, navigation }) {
-  const { remedios, listarRemedios } = useContext(RemediosContext);
+  const { addRemedio } = useContext(RemediosContext);
   const { userId } = useContext(AuthContext);
 
   const CadastrarRemedio = async (formData) => {
@@ -36,9 +35,10 @@ export default function RemediosCadastrar({ props, navigation }) {
       dosagem: formData.dosagem,
       horario: formData.horario,
       tomado: false,
+      userId: userId,
     };
     try {
-      await addRemedio(formData, userId);
+      await addRemedio(formData);
       navigation.navigate("Remédios");
     } catch (error) {
       console.log(error);
