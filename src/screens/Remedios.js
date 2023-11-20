@@ -18,7 +18,7 @@ export default function Remedios({ props, navigation }) {
       setLoading(false);
     }
     carrega();
-  }, []);
+  }, [loading]);
 
   const remediosFilter = remedios.filter(
     (remedio) => remedio.userId === userId

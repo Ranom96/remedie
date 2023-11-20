@@ -27,7 +27,7 @@ export function RemediosProvider({ children }) {
   async function list() {
     try {
       const data = await listarRemedios();
-      setMeusRemedios(data);
+      setMeusRemedios(await data);
     } catch (err) {
       throw Error(err.message);
     }
