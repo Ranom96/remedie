@@ -11,27 +11,36 @@ export const auth = getAuth(app);
 
 auth.onAuthStateChanged((user) => {
   if (user) {
-    console.log(`Usuário logado? ${user}`);
+    console.log(`Usuário logado?`, user);
   } else {
-    console.log(`Usuário deslogado? ${user}`);
+    console.log(`Usuário deslogado?`, user);
   }
 });
 
 export const login = async (email, senha) => {
   try {
     const res = await signInWithEmailAndPassword(auth, email, senha);
-    return res;
+    if (res) {
+      return res;
+    } else {
+      throw res;
+    }
   } catch (error) {
-    return res;
+    return error;
   }
 };
 
 export const register = async (email, senha) => {
   try {
     const res = await createUserWithEmailAndPassword(auth, email, senha);
-    console.log(res);
+    if (res) {
+      await logout();
+      return res;
+    } else {
+      throw err;
+    }
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 

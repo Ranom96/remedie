@@ -4,9 +4,9 @@ import { login, logout, register } from "../services/AuthService";
 const AuthContext = createContext({
   userIdd: null,
   logado: false,
-  handleLogin: () => {},
-  handdleLogout: () => {},
-  handleRegister: () => {},
+  handleLogin: (data) => {},
+  handleLogout: () => {},
+  handleRegister: (data) => {},
 });
 
 export const AuthProvider = ({ children }) => {
@@ -15,9 +15,9 @@ export const AuthProvider = ({ children }) => {
     logado: false,
   });
 
-  const handleLogin = async (email, password) => {
+  const handleLogin = async (data) => {
     try {
-      const res = await login(email, password);
+      const res = await login(data.email, data.senha);
       console.log(res);
     } catch (error) {
       console.log(error);
@@ -27,11 +27,11 @@ export const AuthProvider = ({ children }) => {
   const handleLogout = async () => {
     await logout().then(setCurrentUser({ userId: null, logado: false }));
   };
-  const handleRegister = async (email, password) => {
+
+  const handleRegister = async (data) => {
     try {
-      const res = await register(email, password);
-      console.log(res);
-      setCurrentUser({ userId: res.user.id, logado: true });
+      const res = await register(data.email, data.senha);
+      setCurrentUser({ userId: res.user.uid, logado: false });
     } catch (error) {
       console.log(error);
     }

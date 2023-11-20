@@ -1,12 +1,46 @@
-import { useState } from "react";
-import { SafeAreaView, StyleSheet } from "react-native";
+import { useContext, useState } from "react";
+import { Alert, SafeAreaView, StyleSheet } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
+import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { AuthContext } from "../state/AuthProvider";
+import * as yup from "yup";
+
+const schema = yup.object().shape({
+  email: yup
+    .string()
+    .required("O campo precisa ser preenchido")
+    .matches(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i, "Email inválido"),
+  senha: yup
+    .string()
+    .required("O campo senha deve ser preenchido")
+    .min(6, "A senha deve conter ao menos 6 caracteres"),
+});
 
 const RegistrarUsuario = ({ navigation }) => {
-  const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
-  const [passTwo, setPassTwo] = useState("");
+  const { handleRegister } = useContext(AuthContext);
+
+  const cadastrar = async (formData) => {
+    try {
+      await handleRegister(formData);
+      Alert.alert("Usuário cadastrado com sucesso");
+      navigation.navigate("Login");
+    } catch (error) {
+      console.log("página registrar", error);
+    }
+  };
+
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      email: "",
+      senha: "",
+    },
+  });
 
   return (
     <SafeAreaView style={styles.containerStyle}>
@@ -14,50 +48,47 @@ const RegistrarUsuario = ({ navigation }) => {
         Cadastre sua conta Remedie
       </Text>
 
-      <TextInput
-        mode="outlined"
-        outlineStyle={{ backgroundColor: "transparent" }}
-        outlineColor="#005AFF"
-        activeOutlineColor="#005AFF"
-        style={styles.textSpacer}
-        label="Nome"
-        value={nome}
-        onChangeText={(text) => setNome(text)}
+      <Controller
+        control={control}
+        render={({ field: { onChange, value } }) => (
+          <TextInput
+            mode="outlined"
+            outlineStyle={{ backgroundColor: "transparent" }}
+            outlineColor="#005AFF"
+            activeOutlineColor="#005AFF"
+            style={styles.textSpacer}
+            value={value}
+            onChangeText={onChange}
+            label="Email"
+            placeholder="Email"
+          />
+        )}
+        name="email"
       />
-      <TextInput
-        mode="outlined"
-        outlineStyle={{ backgroundColor: "transparent" }}
-        outlineColor="#005AFF"
-        activeOutlineColor="#005AFF"
-        style={styles.textSpacer}
-        label="Email"
-        value={email}
-        onChangeText={(text) => setEmail(text)}
+      {errors.email && <Text>{errors.email.message}</Text>}
+      <Controller
+        control={control}
+        render={({ field: { onChange, value } }) => (
+          <TextInput
+            mode="outlined"
+            outlineStyle={{ backgroundColor: "transparent" }}
+            outlineColor="#005AFF"
+            activeOutlineColor="#005AFF"
+            style={styles.textSpacer}
+            value={value}
+            onChangeText={onChange}
+            label="Senha"
+            secureTextEntry={true}
+            placeholder="Senha"
+          />
+        )}
+        name="senha"
       />
-      <TextInput
-        mode="outlined"
-        outlineStyle={{ backgroundColor: "transparent" }}
-        outlineColor="#005AFF"
-        activeOutlineColor="#005AFF"
-        style={styles.textSpacer}
-        label="Senha"
-        value={pass}
-        onChangeText={(text) => setPass(text)}
-      />
-      <TextInput
-        mode="outlined"
-        outlineStyle={{ backgroundColor: "transparent" }}
-        outlineColor="#005AFF"
-        activeOutlineColor="#005AFF"
-        style={styles.textSpacer}
-        label="Senha"
-        value={passTwo}
-        onChangeText={(text) => setPassTwo(text)}
-      />
+
       <Button
         style={styles.buttonStyle}
         mode="contained"
-        onPress={() => navigation.navigate("Login")}
+        onPress={handleSubmit(cadastrar)}
       >
         Cadastrar
       </Button>
