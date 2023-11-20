@@ -9,6 +9,8 @@ import { AuthContext } from "../state/AuthProvider";
 import * as yup from "yup";
 import { addRemedio } from "../services/RemedioService";
 
+//TODO: #52 Implementar cadastro de remédios @Kievv
+
 const schema = yup.object().shape({
   medicamento: yup
     .string()

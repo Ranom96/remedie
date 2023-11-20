@@ -57,6 +57,7 @@ export default function ExibirRemedios(props) {
         checked={isChecked}
         onChange={() => setIsChecked(!isChecked)}
       />
+
       <View style={{ flexDirection: "column" }}>
         <Text style={TextStyle}>{props.medicamento}</Text>
         <View style={{ flexDirection: "row" }}>

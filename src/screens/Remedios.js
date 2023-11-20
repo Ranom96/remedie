@@ -1,14 +1,24 @@
-import { SafeAreaView, Text, FlatList, View } from "react-native";
-import { Button } from "react-native-paper";
+import { SafeAreaView, Text, View, FlatList, ScrollView } from "react-native";
+import { Button, List } from "react-native-paper";
 import Header from "../components/Header";
-import ExibirConsultas from "../components/ExibirConsultas";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import RemediosContext from "../state/RemediosProvider";
 import { AuthContext } from "../state/AuthProvider";
+import ExibirRemedios from "../components/ExibirRemedios";
 
 export default function Remedios({ props, navigation }) {
   const { userId } = useContext(AuthContext);
   const { remedios, listRemedios } = useContext(RemediosContext);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    async function carrega() {
+      setLoading(true);
+      await listRemedios();
+      setLoading(false);
+    }
+    carrega();
+  }, []);
 
   const remediosFilter = remedios.filter(
     (remedio) => remedio.userId === userId
@@ -35,17 +45,15 @@ export default function Remedios({ props, navigation }) {
       <Text style={TextStyle}>Remédios do dia</Text>
       <View style={{ flex: 1, alignItems: "center", marginTop: 24 }}>
         {remediosFilter.length > 0 ? (
-          <FlatList
-            data={remediosFilter}
-            keyExtractor={(remedio) => remedio.id}
-            renderItem={({ remedio }) => (
-              <ExibirConsultas
-                dado1={remedio.medicamento}
-                dado2={remedio.horario}
-                dado3={remedio.dosagem}
+          <ScrollView>
+            {remediosFilter.map((remedio, key) => (
+              <ExibirRemedios
+                medicamento={remedio.medicamento}
+                horario={remedio.horario}
+                dosagem={remedio.dosagem}
               />
-            )}
-          />
+            ))}
+          </ScrollView>
         ) : (
           <Text>Ainda não há nenhum remédio cadastrado</Text>
         )}
