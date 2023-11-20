@@ -28,7 +28,7 @@ export const listarRemedios = async () => {
 
 export const addRemedio = async (data, userId) => {
   try {
-    const res = await addDoc(collection(db, "reemedios"), {
+    await addDoc(collection(db, "reemedios"), {
       medicamento: data.medicamento,
       dosagem: data.dosagem,
       horario: data.horario,

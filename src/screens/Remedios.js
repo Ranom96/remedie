@@ -2,8 +2,12 @@ import { SafeAreaView, Text, FlatList } from "react-native";
 import { Button } from "react-native-paper";
 import Header from "../components/Header";
 import ExibirConsultas from "../components/ExibirConsultas";
+import { useContext } from "react";
+import RemediosContext from "../state/RemediosProvider";
 
 export default function Remedios({ props, navigation }) {
+  const { remedios, listRemedios } = useContext(RemediosContext);
+
   const TextStyle = {
     fontSize: 32,
     textAlign: "center",
@@ -18,21 +22,6 @@ export default function Remedios({ props, navigation }) {
     position: "absolute",
     bottom: 16,
   };
-
-  const data = [
-    {
-      id: "1",
-      nomeRemedio: "Dipirona",
-      horario: "14h30",
-      dosagem: "1 comprimido",
-    },
-    {
-      id: "2",
-      nomeRemedio: "Nimesulida",
-      horario: "12h45",
-      dosagem: "1 comprimido",
-    },
-  ];
 
   return (
     <>
