@@ -15,7 +15,6 @@ export const listarRemedios = async () => {
     res.forEach((doc) => {
       remedios.push({ key: doc.id, ...doc.data() });
     });
-    console.log(remedios);
     return remedios;
   } catch (error) {
     console.log(error);

@@ -1,5 +1,5 @@
 import { SafeAreaView, Text, View, FlatList, ScrollView } from "react-native";
-import { Button, List } from "react-native-paper";
+import { ActivityIndicator, Button, List } from "react-native-paper";
 import Header from "../components/Header";
 import { useContext, useEffect, useState } from "react";
 import RemediosContext from "../state/RemediosProvider";
@@ -9,21 +9,24 @@ import ExibirRemedios from "../components/ExibirRemedios";
 export default function Remedios({ props, navigation }) {
   const { userId } = useContext(AuthContext);
   const { remedios, listRemedios } = useContext(RemediosContext);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [meusRemedios, setMeusRemedios] = useState([]);
 
   useEffect(() => {
-    async function carrega() {
+    async function carregarRemedios() {
       setLoading(true);
-      await listRemedios();
+      const res = await listRemedios();
+
+      setMeusRemedios(res);
       setLoading(false);
     }
-    carrega();
-  }, []);
 
+    carregarRemedios();
+  }, []);
+  console.log("estado de remedios", remedios);
   const remediosFilter = remedios.filter(
     (remedio) => remedio.userId === userId
   );
-
   const TextStyle = {
     fontSize: 32,
     textAlign: "center",
@@ -38,6 +41,9 @@ export default function Remedios({ props, navigation }) {
     position: "absolute",
     bottom: 16,
   };
+  if (loading) {
+    return <ActivityIndicator />;
+  }
 
   return (
     <>
@@ -45,15 +51,17 @@ export default function Remedios({ props, navigation }) {
       <Text style={TextStyle}>Remédios do dia</Text>
       <View style={{ flex: 1, alignItems: "center", marginTop: 24 }}>
         {remediosFilter.length > 0 ? (
-          <ScrollView>
-            {remediosFilter.map((remedio, key) => (
+          <FlatList
+            data={remedios}
+            keyExtractor={(item) => item.key}
+            renderItem={({ item }) => (
               <ExibirRemedios
-                medicamento={remedio.medicamento}
-                horario={remedio.horario}
-                dosagem={remedio.dosagem}
+                medicamento={item.medicamento}
+                horario={item.horario}
+                dosagem={item.dosagem}
               />
-            ))}
-          </ScrollView>
+            )}
+          />
         ) : (
           <Text>Ainda não há nenhum remédio cadastrado</Text>
         )}
