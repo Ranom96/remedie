@@ -32,10 +32,11 @@ export const addRemedio = async (data, userId) => {
       medicamento: data.medicamento,
       dosagem: data.dosagem,
       horario: data.horario,
+      tomado: false,
       userId: userId,
     });
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 

@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 import { login, logout, register } from "../services/AuthService";
 
 const AuthContext = createContext({
-  userIdd: null,
+  userId: null,
   logado: false,
   handleLogin: (data) => {},
   handleLogout: () => {},

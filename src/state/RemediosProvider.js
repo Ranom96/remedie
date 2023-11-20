@@ -12,7 +12,7 @@ const RemediosContext = createContext({
   removerRemedio: () => {},
 });
 
-export function RemediosContextProvider({ children }) {
+export function RemediosProvider({ children }) {
   const [meusRemedios, setMeusRemedios] = useState([]);
 
   async function inserir(remedio) {
