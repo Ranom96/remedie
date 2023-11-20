@@ -5,28 +5,30 @@ import Header from '../components/Header'
 import TextInputComponent from '../components/TextInputComponent'
 import BotaoAdicionarImagem from '../components/BotaoAdicionarImagem'
 import TimeInput from '../components/TimeInput'
-import BotaoCancelarSalvar from '../components/BotaoCancelarSalvar'
+import DateInput from '../components/DateInput'
 
-export default function RemediosCadastrar({props, navigation}) {
+
+export default function ConsultasCadastrar({props, navigation}) {
   const TextStyle = {
     fontSize: 32,
     textAlign: 'center',
     fontWeight: '400',
     marginHorizontal: 24,
     paddingTop: 16
-
   }
 
   return (
     <SafeAreaView>
-      <Header title='Remédios' />
+      <Header title='Consultas' />
       <ScrollView>
-        <Text style={TextStyle}>Cadastre seus remédios</Text>
-        <TextInputComponent label="Medicamento" descricao='Insira o nome do remédio' placeholder='Nome' />
-        <TextInputComponent label="Dosagem" descricao='Qual é a dosagem? Ex: 1 dose = 2 capsulas' placeholder='Nome' />
-        <TimeInput label="Horário do remédio" />
+        <Text style={TextStyle}>Cadastre suas consultas</Text>
+        <DateInput label="Data" descricao="Insira a data da consulta" />
+        <TextInputComponent label="Local" descricao='Insira o nome do hospital/clínica' placeholder='Nome' />
+        <TextInputComponent label="Médico" descricao='Insira o nome do seu médico' placeholder='Nome' />
+        <TextInputComponent label="Especialidade" descricao='Insira a especialidade do exame' placeholder='Nome' />
+        <TimeInput label="Horário da consulta" />
         <SafeAreaView style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-            <Button textColor='red' onPress={() => navigation.navigate("Remédios")}>cancelar</Button>
+            <Button textColor='red' onPress={() => navigation.navigate("Consultas")}>cancelar</Button>
             <Button textColor='#007AFF' onPress={() => { }}>Salvar</Button>
         </SafeAreaView>
         <View style={{ marginBottom: 100 }} /> 
