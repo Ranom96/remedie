@@ -34,9 +34,11 @@ export default function Remedios({ props, navigation }) {
 
   const botaoStyle = {
     backgroundColor: "#007AFF",
-    borderRadius: 24,
+    borderRadius: 50,
     position: "absolute",
     bottom: 16,
+    right: 16,
+    padding: 15,
   };
   if (loading) {
     return <ActivityIndicator />;

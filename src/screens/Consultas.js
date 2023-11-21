@@ -14,9 +14,11 @@ export default function Consultas({ props, navigation }) {
 
   const botaoStyle = {
     backgroundColor: "#007AFF",
-    borderRadius: 24,
+    borderRadius: 50,
     position: "absolute",
     bottom: 16,
+    right: 16,
+    padding: 15,
   };
 
   const data = [
@@ -51,7 +53,7 @@ export default function Consultas({ props, navigation }) {
           )}
         />
         <Button style={botaoStyle} onPress={() => navigation.navigate("")}>
-          <Text style={{ color: "white", fontSize: 24, paddingTop: 8 }}>+</Text>
+          <Text style={{ color: "white", fontSize: 24, paddingTop: 8  }}>+</Text>
         </Button>
       </SafeAreaView>
     </>
