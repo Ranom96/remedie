@@ -12,6 +12,7 @@ export default function Remedios({ props, navigation }) {
     useContext(RemediosContext);
   const [loading, setLoading] = useState(true);
   const [check, setCheck] = useState();
+  const [meusRemedios, setMeusRemedios] = useState([]);
 
   useEffect(() => {
     async function carregarRemedios() {
@@ -22,9 +23,19 @@ export default function Remedios({ props, navigation }) {
     carregarRemedios();
   }, [remedios.length]);
 
-  const remediosFilter = remedios.filter(
-    (remedio) => remedio.userId === userId
-  );
+  const filtrarRemedios = (remedios) => {
+    if (remedios) {
+      const remediosFilter = remedios.filter(
+        (remedio) => remedio.userId === userId
+      );
+      return remediosFilter;
+    } else {
+      return <Text>Ainda não há nenhum remédio cadastrado</Text>;
+    }
+  };
+
+  const remediosFilter = filtrarRemedios(remedios);
+
   const TextStyle = {
     fontSize: 32,
     textAlign: "center",

@@ -45,11 +45,9 @@ export function RemediosProvider({ children }) {
   async function remover(key) {
     try {
       await deleteRemedio(key);
-      setMeusRemedios((valorAntigo) =>
-        valorAntigo.filter((remedio) => remedio.id !== key)
-      );
+      list();
     } catch (err) {
-      throw Error(err.message);
+      throw err.message;
     }
   }
 

@@ -23,11 +23,11 @@ const schema = yup.object().shape({
     .matches(/(\d){2}:(\d){2}/, 'O horário precisa estar no padrão "00:00"'),
 });
 
-export default function RemediosCadastrar({ props, navigation }) {
-  const { addRemedio } = useContext(RemediosContext);
+export default function RemediosDeletar({ navigation }) {
+  const { removerRemedio } = useContext(RemediosContext);
   const { userId } = useContext(AuthContext);
 
-  const CadastrarRemedio = async (formData) => {
+  const RemoverRemedio = async (formData) => {
     formData = {
       medicamento: formData.medicamento,
       dosagem: formData.dosagem,

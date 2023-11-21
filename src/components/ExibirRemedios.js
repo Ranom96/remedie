@@ -9,12 +9,14 @@ import {
 import { Checkbox } from "react-native-paper";
 import { Button } from "react-native-paper";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { useContext } from "react";
+import RemediosContext from "../state/RemediosProvider";
 
 export default function ExibirRemedios(props) {
   const [isVisible, setIsVisible] = useState(false);
   const [isChecked, setIsChecked] = useState(props.tomado ? true : false);
+  const { removerRemedio } = useContext(RemediosContext);
 
   const exibirStyle = {
     flex: 1,
@@ -57,6 +59,10 @@ export default function ExibirRemedios(props) {
     props.handleCheck(!isChecked, props.id);
   };
 
+  const handleRemover = async (id) => {
+    await removerRemedio(id);
+    hideModal();
+  };
   return (
     <SafeAreaView style={exibirStyle}>
       <Checkbox
@@ -97,7 +103,7 @@ export default function ExibirRemedios(props) {
               flexDirection: "row",
             }}
           >
-            <Button buttoncolor="red" onPress={() => {}}>
+            <Button buttoncolor="red" onPress={() => handleRemover(props.id)}>
               Remover
             </Button>
             <Button buttoncolor="#007AFF" onPress={() => {}}>
