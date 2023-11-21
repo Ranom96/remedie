@@ -6,10 +6,12 @@ import RemediosContext from "../state/RemediosProvider";
 import { AuthContext } from "../state/AuthProvider";
 import ExibirRemedios from "../components/ExibirRemedios";
 
-export default function Remedios({ props, navigation }) {
+export default function Remedios({ navigation }) {
   const { userId } = useContext(AuthContext);
-  const { remedios, listarRemedios } = useContext(RemediosContext);
+  const { remedios, listarRemedios, atualizarRemedio } =
+    useContext(RemediosContext);
   const [loading, setLoading] = useState(true);
+  const [check, setCheck] = useState();
 
   useEffect(() => {
     async function carregarRemedios() {
@@ -20,10 +22,19 @@ export default function Remedios({ props, navigation }) {
     carregarRemedios();
   }, [remedios.length]);
 
-  console.log("estado de remedios", remedios);
-  const remediosFilter = remedios.filter(
-    (remedio) => remedio.userId === userId
-  );
+  const filtrarRemedios = (remedios) => {
+    if (remedios) {
+      const remediosFilter = remedios.filter(
+        (remedio) => remedio.userId === userId
+      );
+      return remediosFilter;
+    } else {
+      return <Text>Ainda não há nenhum remédio cadastrado</Text>;
+    }
+  };
+
+  const remediosFilter = filtrarRemedios(remedios);
+
   const TextStyle = {
     fontSize: 32,
     textAlign: "center",
@@ -44,8 +55,18 @@ export default function Remedios({ props, navigation }) {
     return <ActivityIndicator />;
   }
 
+  const handleCheck = async (checado, id) => {
+    setCheck(checado);
+    const data = {
+      tomado: checado,
+      id: id,
+    };
+    console.log(data);
+    await atualizarRemedio(data);
+  };
+
   return (
-    <>
+    <SafeAreaView>
       <Header title="Remédios" />
       <Text style={TextStyle}>Remédios do dia</Text>
       <View style={{ flex: 1, alignItems: "center", marginTop: 24 }}>
@@ -58,6 +79,10 @@ export default function Remedios({ props, navigation }) {
                 medicamento={item.medicamento}
                 horario={item.horario}
                 dosagem={item.dosagem}
+                tomado={item.tomado}
+                handleCheck={handleCheck}
+                id={item.key}
+                navigation={navigation}
               />
             )}
           />
@@ -72,6 +97,6 @@ export default function Remedios({ props, navigation }) {
           <Text style={{ color: "white", fontSize: 24, paddingTop: 8 }}>+</Text>
         </Button>
       </View>
-    </>
+    </SafeAreaView>
   );
 }

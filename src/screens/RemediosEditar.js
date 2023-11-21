@@ -23,20 +23,19 @@ const schema = yup.object().shape({
     .matches(/(\d){2}:(\d){2}/, 'O horário precisa estar no padrão "00:00"'),
 });
 
-export default function RemediosCadastrar({ navigation }) {
-  const { addRemedio } = useContext(RemediosContext);
-  const { userId } = useContext(AuthContext);
+export default function RemediosEditar({ route, navigation }) {
+  const { atualizarRemedio } = useContext(RemediosContext);
+  const { medicamento, dosagem, horario, id } = route.params;
 
-  const CadastrarRemedio = async (formData) => {
+  const AtualizarRemedio = async (formData) => {
     formData = {
       medicamento: formData.medicamento,
       dosagem: formData.dosagem,
       horario: formData.horario,
-      tomado: false,
-      userId: userId,
+      id: id,
     };
     try {
-      await addRemedio(formData);
+      await atualizarRemedio(formData);
       navigation.navigate("Remédios");
     } catch (error) {
       console.log(error);
@@ -58,9 +57,9 @@ export default function RemediosCadastrar({ navigation }) {
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      medicamento: "",
-      dosagem: "",
-      horario: "",
+      medicamento: medicamento,
+      dosagem: dosagem,
+      horario: horario,
     },
   });
 
@@ -68,7 +67,7 @@ export default function RemediosCadastrar({ navigation }) {
     <SafeAreaView>
       <Header title="Remédios" />
       <ScrollView>
-        <Text style={TextStyle}>Cadastre seus remédios</Text>
+        <Text style={TextStyle}>Atualize seu remédio</Text>
 
         <Controller
           control={control}
@@ -82,7 +81,6 @@ export default function RemediosCadastrar({ navigation }) {
               value={value}
               onChangeText={onChange}
               label="medicamento"
-              placeholder="Medicamento"
             />
           )}
           name="medicamento"
@@ -100,7 +98,6 @@ export default function RemediosCadastrar({ navigation }) {
               value={value}
               onChangeText={onChange}
               label="dosagem"
-              placeholder="Dosagem"
             />
           )}
           name="dosagem"
@@ -119,7 +116,6 @@ export default function RemediosCadastrar({ navigation }) {
               value={value}
               onChangeText={onChange}
               label="horario"
-              placeholder="Horario"
             />
           )}
           name="horario"
@@ -133,7 +129,7 @@ export default function RemediosCadastrar({ navigation }) {
           >
             cancelar
           </Button>
-          <Button textColor="#007AFF" onPress={handleSubmit(CadastrarRemedio)}>
+          <Button textColor="#007AFF" onPress={handleSubmit(AtualizarRemedio)}>
             Salvar
           </Button>
         </View>

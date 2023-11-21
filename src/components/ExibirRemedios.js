@@ -9,12 +9,14 @@ import {
 import { Checkbox } from "react-native-paper";
 import { Button } from "react-native-paper";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { useContext } from "react";
+import RemediosContext from "../state/RemediosProvider";
 
 export default function ExibirRemedios(props) {
-  const [isChecked, setIsChecked] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isChecked, setIsChecked] = useState(props.tomado ? true : false);
+  const { removerRemedio } = useContext(RemediosContext);
 
   const exibirStyle = {
     flex: 1,
@@ -49,13 +51,23 @@ export default function ExibirRemedios(props) {
     setIsVisible(false);
   };
 
+  const handleCheck = () => {
+    setIsChecked(!isChecked);
+    console.log(props.id);
+    props.handleCheck(!isChecked, props.id);
+  };
+
+  const handleRemover = async (id) => {
+    await removerRemedio(id);
+    hideModal();
+  };
   return (
     <SafeAreaView style={exibirStyle}>
       <Checkbox
         style={checkboxStyle}
         label=""
-        checked={isChecked}
-        onChange={() => setIsChecked(!isChecked)}
+        status={isChecked ? "checked" : "unchecked"}
+        onPress={handleCheck}
       />
 
       <View style={{ flexDirection: "column" }}>
@@ -73,7 +85,6 @@ export default function ExibirRemedios(props) {
             </View>
           </TouchableWithoutFeedback>
         </View>
-        <Text style={TextStyle}>{props.dado4}</Text>
       </View>
 
       <Modal visible={isVisible} animationType="slide" transparent={true}>
@@ -89,10 +100,21 @@ export default function ExibirRemedios(props) {
               flexDirection: "row",
             }}
           >
-            <Button buttoncolor="red" onPress={() => {}}>
+            <Button buttoncolor="red" onPress={() => handleRemover(props.id)}>
               Remover
             </Button>
-            <Button buttoncolor="#007AFF" onPress={() => {}}>
+            <Button
+              buttoncolor="#007AFF"
+              onPress={() => {
+                props.navigation.navigate("RemediosEditar", {
+                  medicamento: props.medicamento,
+                  dosagem: props.dosagem,
+                  horario: props.horario,
+                  id: props.id,
+                });
+                hideModal();
+              }}
+            >
               Editar
             </Button>
             <TouchableWithoutFeedback onPress={hideModal}>

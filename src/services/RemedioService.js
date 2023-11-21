@@ -4,6 +4,8 @@ import {
   addDoc,
   getDocs,
   deleteDoc,
+  updateDoc,
+  getDoc,
 } from "firebase/firestore";
 import { db } from "./firebaseConfig";
 
@@ -17,7 +19,7 @@ export const listarRemedios = async () => {
     });
     return remedios;
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 
@@ -27,10 +29,29 @@ export const addRemedio = async (data) => {
       medicamento: data.medicamento,
       dosagem: data.dosagem,
       horario: data.horario,
-      tomado: false,
+      tomado: data.tomado,
       userId: data.userId,
     });
-    console.log("chega aqui");
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const updateRemedio = async (data) => {
+  const docRef = doc(db, "remedios", data.id);
+  const docSnap = await getDoc(docRef);
+  const docData = docSnap.data();
+
+  const dataTratada = {
+    medicamento:
+      data.medicamento === undefined ? docData.medicamento : data.medicamento,
+    dosagem: data.dosagem === undefined ? docData.dosagem : data.dosagem,
+    horario: data.horario === undefined ? docData.horario : data.horario,
+    tomado: data.tomado === undefined ? docData.tomado : data.tomado,
+  };
+
+  try {
+    await updateDoc(docRef, dataTratada);
   } catch (error) {
     throw error;
   }
