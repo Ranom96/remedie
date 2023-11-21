@@ -85,7 +85,6 @@ export default function ExibirRemedios(props) {
             </View>
           </TouchableWithoutFeedback>
         </View>
-        <Text style={TextStyle}>{props.dado4}</Text>
       </View>
 
       <Modal visible={isVisible} animationType="slide" transparent={true}>

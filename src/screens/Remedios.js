@@ -6,13 +6,12 @@ import RemediosContext from "../state/RemediosProvider";
 import { AuthContext } from "../state/AuthProvider";
 import ExibirRemedios from "../components/ExibirRemedios";
 
-export default function Remedios({ props, navigation }) {
+export default function Remedios({ navigation }) {
   const { userId } = useContext(AuthContext);
   const { remedios, listarRemedios, atualizarRemedio } =
     useContext(RemediosContext);
   const [loading, setLoading] = useState(true);
   const [check, setCheck] = useState();
-  const [meusRemedios, setMeusRemedios] = useState([]);
 
   useEffect(() => {
     async function carregarRemedios() {
@@ -67,7 +66,7 @@ export default function Remedios({ props, navigation }) {
   };
 
   return (
-    <>
+    <SafeAreaView>
       <Header title="Remédios" />
       <Text style={TextStyle}>Remédios do dia</Text>
       <View style={{ flex: 1, alignItems: "center", marginTop: 24 }}>
@@ -98,6 +97,6 @@ export default function Remedios({ props, navigation }) {
           <Text style={{ color: "white", fontSize: 24, paddingTop: 8 }}>+</Text>
         </Button>
       </View>
-    </>
+    </SafeAreaView>
   );
 }

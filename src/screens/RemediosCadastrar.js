@@ -23,7 +23,7 @@ const schema = yup.object().shape({
     .matches(/(\d){2}:(\d){2}/, 'O horário precisa estar no padrão "00:00"'),
 });
 
-export default function RemediosCadastrar({ props, navigation }) {
+export default function RemediosCadastrar({ navigation }) {
   const { addRemedio } = useContext(RemediosContext);
   const { userId } = useContext(AuthContext);
 
@@ -106,7 +106,7 @@ export default function RemediosCadastrar({ props, navigation }) {
           name="dosagem"
         />
         {errors.dosagem && <Text>{errors.dosagem.message}</Text>}
-        {/* <TimeInput label="Horário do remédio" /> */}
+
         <Controller
           control={control}
           render={({ field: { onChange, value } }) => (

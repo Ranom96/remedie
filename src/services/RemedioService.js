@@ -6,7 +6,6 @@ import {
   deleteDoc,
   updateDoc,
   getDoc,
-  setDoc,
 } from "firebase/firestore";
 import { db } from "./firebaseConfig";
 
@@ -20,7 +19,7 @@ export const listarRemedios = async () => {
     });
     return remedios;
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 
