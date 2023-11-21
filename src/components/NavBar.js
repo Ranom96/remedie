@@ -18,6 +18,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import RegistrarUsuario from "../screens/RegistrarUsuario";
 import ForgotPassword from "../screens/ForgotPassword";
 import ExamesCadastrar from "../screens/ExamesCadastrar";
+import RemediosEditar from "../screens/RemediosEditar";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -134,6 +135,15 @@ export default function NavBar() {
       <Screen
         name="RemediosCadastrar"
         component={RemediosCadastrar}
+        options={{
+          headerShown: false,
+          tabBarItemStyle: { display: "none" },
+          tabBarStyle: { display: "none" },
+        }}
+      />
+      <Screen
+        name="RemediosEditar"
+        component={RemediosEditar}
         options={{
           headerShown: false,
           tabBarItemStyle: { display: "none" },

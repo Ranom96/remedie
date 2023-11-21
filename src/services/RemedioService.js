@@ -52,7 +52,7 @@ export const updateRemedio = async (data) => {
   };
 
   try {
-    await setDoc(docRef, dataTratada);
+    await updateDoc(docRef, dataTratada);
   } catch (error) {
     throw error;
   }

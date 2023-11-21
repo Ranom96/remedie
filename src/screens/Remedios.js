@@ -83,6 +83,7 @@ export default function Remedios({ props, navigation }) {
                 tomado={item.tomado}
                 handleCheck={handleCheck}
                 id={item.key}
+                navigation={navigation}
               />
             )}
           />

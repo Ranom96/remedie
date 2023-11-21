@@ -38,6 +38,7 @@ export function RemediosProvider({ children }) {
   async function update(data) {
     try {
       await updateRemedio(data);
+      list();
     } catch (error) {
       throw error;
     }

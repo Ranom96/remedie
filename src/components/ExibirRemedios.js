@@ -104,7 +104,18 @@ export default function ExibirRemedios(props) {
             <Button buttoncolor="red" onPress={() => handleRemover(props.id)}>
               Remover
             </Button>
-            <Button buttoncolor="#007AFF" onPress={() => {}}>
+            <Button
+              buttoncolor="#007AFF"
+              onPress={() => {
+                props.navigation.navigate("RemediosEditar", {
+                  medicamento: props.medicamento,
+                  dosagem: props.dosagem,
+                  horario: props.horario,
+                  id: props.id,
+                });
+                hideModal();
+              }}
+            >
               Editar
             </Button>
             <TouchableWithoutFeedback onPress={hideModal}>
