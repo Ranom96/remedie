@@ -20,6 +20,7 @@ import ForgotPassword from "../screens/ForgotPassword";
 import ExamesCadastrar from "../screens/ExamesCadastrar";
 import RemediosEditar from "../screens/RemediosEditar";
 import ConsultasEditar from "../screens/ConsultasEditar";
+import ExamesEditar from "../screens/ExamesEditar";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -154,6 +155,15 @@ export default function NavBar() {
       <Screen
         name="ConsultasEditar"
         component={ConsultasEditar}
+        options={{
+          headerShown: false,
+          tabBarItemStyle: { display: "none" },
+          tabBarStyle: { display: "none" },
+        }}
+      />
+      <Screen
+        name="ExamesEditar"
+        component={ExamesEditar}
         options={{
           headerShown: false,
           tabBarItemStyle: { display: "none" },

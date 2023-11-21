@@ -1,9 +1,11 @@
 import {
-  collection,
   doc,
+  collection,
   addDoc,
   getDocs,
   deleteDoc,
+  updateDoc,
+  getDoc,
 } from "firebase/firestore";
 import { db } from "./firebaseConfig";
 
@@ -16,28 +18,45 @@ export const listarExames = async () => {
       res.forEach((doc) => {
         exames.push({ key: doc.id, ...doc.data() });
       });
-      console.log(exames);
       return exames;
-    } else {
-      return "Nenhum exame cadastrado";
     }
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 
-export const addExame = async (data, userId) => {
+export const addExame = async (data) => {
   try {
     await addDoc(collection(db, "exames"), {
       exame: data.exame,
-      especialidade: data.especialidade,
       data: data.data,
       horario: data.horario,
       local: data.local,
-      userId: userId,
+      compareceu: data.compareceu,
+      userId: data.userId,
     });
   } catch (error) {
-    console.log(error);
+    throw error;
+  }
+};
+
+export const updateExame = async (data) => {
+  const docRef = doc(db, "exames", data.id);
+  const docSnap = await getDoc(docRef);
+  const docData = docSnap.data();
+  const dataTratada = {
+    exame: data.exame === undefined ? docData.exame : data.exame,
+    local: data.local === undefined ? docData.local : data.local,
+    data: data.data === undefined ? docData.data : data.data,
+    horario: data.horario === undefined ? docData.horario : data.horario,
+    compareceu:
+      data.compareceu === undefined ? docData.compareceu : data.compareceu,
+  };
+
+  try {
+    await updateDoc(docRef, dataTratada);
+  } catch (error) {
+    throw error;
   }
 };
 

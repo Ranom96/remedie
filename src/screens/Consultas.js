@@ -62,10 +62,10 @@ export default function Consultas({ navigation }) {
       compareceu: checado,
       id: id,
     };
+    console.log(data);
     await atualizarConsulta(data);
   };
 
-  console.log(consultasFilter);
   return (
     <SafeAreaView>
       <Header title="Consultas" />
@@ -81,6 +81,7 @@ export default function Consultas({ navigation }) {
                 data={item.data}
                 local={item.local}
                 medico={item.medico}
+                compareceu={item.compareceu}
                 horario={item.horario}
                 id={item.key}
                 handleCheck={handleCheck}

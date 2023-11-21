@@ -59,6 +59,7 @@ export const updateConsulta = async (data) => {
     compareceu:
       data.compareceu === undefined ? docData.compareceu : data.compareceu,
   };
+  console.log(dataTratada);
   try {
     await updateDoc(docRef, dataTratada);
   } catch (error) {

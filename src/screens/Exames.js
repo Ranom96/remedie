@@ -1,9 +1,37 @@
-import { SafeAreaView, Text, FlatList } from "react-native";
-import { Button } from "react-native-paper";
+import { SafeAreaView, Text, FlatList, View } from "react-native";
+import { ActivityIndicator, Button } from "react-native-paper";
 import Header from "../components/Header";
-import ExibirConsultas from "../components/ExibirConsultas";
+import ExibirExames from "../components/ExibirExames";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../state/AuthProvider";
+import ExamesContext from "../state/ExamesProvider";
 
 export default function Exames({ props, navigation }) {
+  const { userId } = useContext(AuthContext);
+  const { exames, listarExames, atualizarExame } = useContext(ExamesContext);
+  const [loading, setLoading] = useState(true);
+  const [check, setCheck] = useState();
+
+  useEffect(() => {
+    async function carregarExames() {
+      setLoading(true);
+      await listarExames();
+      setLoading(false);
+    }
+    carregarExames();
+  }, [exames.length]);
+
+  const filtarExames = (exames) => {
+    if (exames) {
+      const examesFilter = exames.filter((exame) => exame.userId === userId);
+      return examesFilter;
+    } else {
+      return <Text>Ainda não há nenhuma consulta cadastrada</Text>;
+    }
+  };
+
+  const examesFilter = filtarExames(exames);
+
   const TextStyle = {
     fontSize: 32,
     textAlign: "center",
@@ -21,44 +49,51 @@ export default function Exames({ props, navigation }) {
     padding: 15,
   };
 
-  const data = [
-    {
-      id: "1",
-      nomeExame: "Tomografia",
-      data: "24/11/2023",
-      local: "Laboratório X",
-    },
-    {
-      id: "2",
-      nomeExame: "Endoscopia",
-      data: "27/11/2023",
-      local: "Laboratório X",
-    },
-  ];
+  if (loading) {
+    return <ActivityIndicator />;
+  }
+
+  const handleCheck = async (checado, id) => {
+    setCheck(checado);
+    const data = {
+      compareceu: checado,
+      id: id,
+    };
+    await atualizarExame(data);
+  };
 
   return (
-    <>
+    <SafeAreaView>
       <Header title="Exames" />
-      <Text style={TextStyle}>Exames do dia</Text>
-      <SafeAreaView style={{ flex: 1, alignItems: "center", marginTop: 24 }}>
-        <FlatList
-          data={data}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <ExibirConsultas
-              dado1={item.nomeExame}
-              dado2={item.data}
-              dado3={item.local}
-            />
-          )}
-        />
+      <Text style={TextStyle}>Seus Exames</Text>
+      <View style={{ flex: 1, alignItems: "center", marginTop: 24 }}>
+        {examesFilter.length > 0 ? (
+          <FlatList
+            data={exames}
+            keyExtractor={(item) => item.key}
+            renderItem={({ item }) => (
+              <ExibirExames
+                exame={item.exame}
+                data={item.data}
+                horario={item.horario}
+                local={item.local}
+                compareceu={item.compareceu}
+                id={item.key}
+                handleCheck={handleCheck}
+                navigation={navigation}
+              />
+            )}
+          />
+        ) : (
+          <Text>Ainda não há nenhum exame cadastrado</Text>
+        )}
         <Button
           style={botaoStyle}
           onPress={() => navigation.navigate("ExamesCadastrar")}
         >
           <Text style={{ color: "white", fontSize: 24, paddingTop: 8 }}>+</Text>
         </Button>
-      </SafeAreaView>
-    </>
+      </View>
+    </SafeAreaView>
   );
 }
