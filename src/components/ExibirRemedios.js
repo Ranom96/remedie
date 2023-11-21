@@ -51,11 +51,9 @@ export default function ExibirRemedios(props) {
     setIsVisible(false);
   };
 
-  //TODO: #58 Ajeitando estado checkbox @Kievv
-
-  //TODO: #59 Criar operação de update de remédios @Kievv
   const handleCheck = () => {
     setIsChecked(!isChecked);
+    console.log(props.id);
     props.handleCheck(!isChecked, props.id);
   };
 
