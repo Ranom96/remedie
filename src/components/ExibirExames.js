@@ -10,12 +10,12 @@ import { Checkbox } from "react-native-paper";
 import { Button } from "react-native-paper";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
-import ConsultasContext from "../state/ConsultasProvider";
+import ExamesContext from "../state/ExamesProvider";
 
-export default function ExibirConsultas(props) {
+export default function ExibirExames(props) {
   const [isChecked, setIsChecked] = useState(props.compareceu ? true : false);
   const [isVisible, setIsVisible] = useState(false);
-  const { removerConsulta } = useContext(ConsultasContext);
+  const { removerExame } = useContext(ExamesContext);
 
   const exibirStyle = {
     flex: 1,
@@ -57,7 +57,7 @@ export default function ExibirConsultas(props) {
   };
 
   const handleRemover = async (id) => {
-    await removerConsulta(id);
+    await removerExame(id);
     hideModal();
   };
   return (
@@ -69,8 +69,7 @@ export default function ExibirConsultas(props) {
         onPress={handleCheck}
       />
       <View style={{ flexDirection: "column" }}>
-        <Text style={TextStyle}>{props.especialidade}</Text>
-        <Text style={TextStyle}>{props.medico}</Text>
+        <Text style={TextStyle}>{props.exame}</Text>
         <Text style={TextStyle}>{props.local}</Text>
         <View style={{ flexDirection: "row" }}>
           <Text style={TextStyle}>{props.data}</Text>
@@ -106,12 +105,11 @@ export default function ExibirConsultas(props) {
             <Button
               buttoncolor="#007AFF"
               onPress={() => {
-                props.navigation.navigate("ConsultasEditar", {
+                props.navigation.navigate("ExamesEditar", {
+                  exame: props.exame,
                   data: props.data,
                   horario: props.horario,
                   local: props.local,
-                  medico: props.medico,
-                  especialidade: props.especialidade,
                   id: props.id,
                 });
                 hideModal();

@@ -49,7 +49,7 @@ export const updateRemedio = async (data) => {
     horario: data.horario === undefined ? docData.horario : data.horario,
     tomado: data.tomado === undefined ? docData.tomado : data.tomado,
   };
-
+  console.log(dataTratada);
   try {
     await updateDoc(docRef, dataTratada);
   } catch (error) {

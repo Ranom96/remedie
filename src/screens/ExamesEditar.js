@@ -21,22 +21,20 @@ const schema = yup.object().shape({
     .min(3, "O campo precisa ter no mínimo 3 caracteres"),
 });
 
-export default function ExamesCadastrar({ navigation }) {
-  const { addExame } = useContext(ExamesContext);
-  const { userId } = useContext(AuthContext);
+export default function ExamesEditar({ route, navigation }) {
+  const { atualizarExame } = useContext(ExamesContext);
+  const { exame, data, horario, local, id } = route.params;
 
-  const CadastrarExame = async (formData) => {
+  const AtualizarExame = async (formData) => {
     formData = {
       exame: formData.exame,
       data: formData.data,
       horario: formData.horario,
       local: formData.local,
-      compareceu: false,
-      userId: userId,
+      id: id,
     };
-    console.log(formData);
     try {
-      await addExame(formData);
+      await atualizarExame(formData);
       navigation.navigate("Exames");
     } catch (error) {
       console.log(error);
@@ -58,10 +56,10 @@ export default function ExamesCadastrar({ navigation }) {
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      exame: "",
-      data: "",
-      horario: "",
-      local: "",
+      exame: exame,
+      data: data,
+      horario: horario,
+      local: local,
     },
   });
 
@@ -149,7 +147,7 @@ export default function ExamesCadastrar({ navigation }) {
           <Button textColor="red" onPress={() => navigation.navigate("Exames")}>
             cancelar
           </Button>
-          <Button textColor="#007AFF" onPress={handleSubmit(CadastrarExame)}>
+          <Button textColor="#007AFF" onPress={handleSubmit(AtualizarExame)}>
             Salvar
           </Button>
         </View>
