@@ -2,10 +2,11 @@ import { SafeAreaView, View, Image, Text } from 'react-native';
 
 export default function Header(props) {
     const HeaderStyle = {
-        height: 64,
+        height: 99,
         backgroundColor: '#007AFF',
         color: 'white',
         fontSize: 32,
+        paddingTop: 39,
     }
     const TextHeaderStyle = {
         color: 'white',

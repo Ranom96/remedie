@@ -14,9 +14,11 @@ export default function Exames({ props, navigation }) {
 
   const botaoStyle = {
     backgroundColor: "#007AFF",
-    borderRadius: 24,
+    borderRadius: 50,
     position: "absolute",
     bottom: 16,
+    right: 16,
+    padding: 15,
   };
 
   const data = [
@@ -36,8 +38,8 @@ export default function Exames({ props, navigation }) {
 
   return (
     <>
-      <Header title="Remédios" />
-      <Text style={TextStyle}>Remédios do dia</Text>
+      <Header title="Exames" />
+      <Text style={TextStyle}>Exames do dia</Text>
       <SafeAreaView style={{ flex: 1, alignItems: "center", marginTop: 24 }}>
         <FlatList
           data={data}
