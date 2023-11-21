@@ -45,14 +45,14 @@ export default function Remedios({ props, navigation }) {
     return <ActivityIndicator />;
   }
 
-  const handleCheck = (checado, id) => {
+  const handleCheck = async (checado, id) => {
     setCheck(checado);
     const data = {
       tomado: checado,
       id: id,
     };
     console.log(data);
-    atualizarRemedio(data);
+    await atualizarRemedio(data);
   };
 
   return (

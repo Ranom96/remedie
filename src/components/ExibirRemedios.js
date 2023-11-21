@@ -54,7 +54,6 @@ export default function ExibirRemedios(props) {
   //TODO: #59 Criar operação de update de remédios @Kievv
   const handleCheck = () => {
     setIsChecked(!isChecked);
-    console.log(props.id);
     props.handleCheck(!isChecked, props.id);
   };
 

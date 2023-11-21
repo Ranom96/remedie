@@ -6,6 +6,7 @@ import {
   deleteDoc,
   updateDoc,
   getDoc,
+  setDoc,
 } from "firebase/firestore";
 import { db } from "./firebaseConfig";
 
@@ -41,15 +42,17 @@ export const updateRemedio = async (data) => {
   const docRef = doc(db, "remedios", data.id);
   const docSnap = await getDoc(docRef);
   const docData = docSnap.data();
-  console.log(docData);
+
+  const dataTratada = {
+    medicamento:
+      data.medicamento === undefined ? docData.medicamento : data.medicamento,
+    dosagem: data.dosagem === undefined ? docData.dosagem : data.dosagem,
+    horario: data.horario === undefined ? docData.horario : data.horario,
+    tomado: data.tomado === undefined ? docData.tomado : data.tomado,
+  };
+
   try {
-    await updateDoc(docRef, {
-      medicamento: data.medicamento ? data.medicamento : docData.medicamento,
-      dosagem: data.dosagem ? data.dosagem : docData.dosagem,
-      horario: data.horario ? data.horario : docData.horario,
-      tomado: data.tomado ? data.tomado : docData.tomado,
-    });
-    console.log(docData);
+    await setDoc(docRef, dataTratada);
   } catch (error) {
     throw error;
   }
