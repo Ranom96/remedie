@@ -80,7 +80,7 @@ export default function NavBar() {
         component={Exames}
         options={{
           tabBarIcon: ({ size, color }) => (
-            <FontAwesomeIcon icon={faNotesMedical} size={size} color={color} />
+            <FontAwesomeIcon icon={faStethoscope} size={size} color={color} />
           ),
         }}
       />
