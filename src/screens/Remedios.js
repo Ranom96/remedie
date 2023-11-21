@@ -8,8 +8,10 @@ import ExibirRemedios from "../components/ExibirRemedios";
 
 export default function Remedios({ props, navigation }) {
   const { userId } = useContext(AuthContext);
-  const { remedios, listarRemedios } = useContext(RemediosContext);
+  const { remedios, listarRemedios, atualizarRemedio } =
+    useContext(RemediosContext);
   const [loading, setLoading] = useState(true);
+  const [check, setCheck] = useState();
 
   useEffect(() => {
     async function carregarRemedios() {
@@ -20,7 +22,6 @@ export default function Remedios({ props, navigation }) {
     carregarRemedios();
   }, [remedios.length]);
 
-  console.log("estado de remedios", remedios);
   const remediosFilter = remedios.filter(
     (remedio) => remedio.userId === userId
   );
@@ -42,6 +43,16 @@ export default function Remedios({ props, navigation }) {
     return <ActivityIndicator />;
   }
 
+  const handleCheck = (checado, id) => {
+    setCheck(checado);
+    const data = {
+      tomado: checado,
+      id: id,
+    };
+    console.log(data);
+    atualizarRemedio(data);
+  };
+
   return (
     <>
       <Header title="Remédios" />
@@ -56,6 +67,9 @@ export default function Remedios({ props, navigation }) {
                 medicamento={item.medicamento}
                 horario={item.horario}
                 dosagem={item.dosagem}
+                tomado={item.tomado}
+                handleCheck={handleCheck}
+                id={item.key}
               />
             )}
           />

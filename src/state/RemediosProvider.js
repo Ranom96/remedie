@@ -3,12 +3,14 @@ import {
   listarRemedios,
   addRemedio,
   deleteRemedio,
+  updateRemedio,
 } from "../services/RemedioService";
 
 const RemediosContext = createContext({
   remedios: [],
   listarRemedios: () => {},
   addRemedio: () => {},
+  atualizarRemedio: () => {},
   removerRemedio: () => {},
 });
 
@@ -20,7 +22,7 @@ export function RemediosProvider({ children }) {
       await addRemedio(remedio);
       setMeusRemedios([...meusRemedios, remedio]);
     } catch (err) {
-      throw Error(err.message);
+      throw err.message;
     }
   }
 
@@ -33,6 +35,13 @@ export function RemediosProvider({ children }) {
     }
   }
 
+  async function update(data) {
+    try {
+      await updateRemedio(data);
+    } catch (error) {
+      throw error;
+    }
+  }
   async function remover(key) {
     try {
       await deleteRemedio(key);
@@ -48,6 +57,7 @@ export function RemediosProvider({ children }) {
     remedios: meusRemedios,
     addRemedio: inserir,
     listarRemedios: list,
+    atualizarRemedio: update,
     removerRemedio: remover,
   };
 

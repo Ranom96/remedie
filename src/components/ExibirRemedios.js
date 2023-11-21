@@ -13,8 +13,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
 export default function ExibirRemedios(props) {
-  const [isChecked, setIsChecked] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isChecked, setIsChecked] = useState(props.tomado ? true : false);
 
   const exibirStyle = {
     flex: 1,
@@ -49,13 +49,22 @@ export default function ExibirRemedios(props) {
     setIsVisible(false);
   };
 
+  //TODO: #58 Ajeitando estado checkbox @Kievv
+
+  //TODO: #59 Criar operação de update de remédios @Kievv
+  const handleCheck = () => {
+    setIsChecked(!isChecked);
+    console.log(props.id);
+    props.handleCheck(!isChecked, props.id);
+  };
+
   return (
     <SafeAreaView style={exibirStyle}>
       <Checkbox
         style={checkboxStyle}
         label=""
-        checked={isChecked}
-        onChange={() => setIsChecked(!isChecked)}
+        status={isChecked ? "checked" : "unchecked"}
+        onPress={handleCheck}
       />
 
       <View style={{ flexDirection: "column" }}>
