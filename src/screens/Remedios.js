@@ -1,4 +1,11 @@
-import { SafeAreaView, Text, View, FlatList, ScrollView } from "react-native";
+import {
+  SafeAreaView,
+  Text,
+  View,
+  FlatList,
+  ScrollView,
+  Dimensions,
+} from "react-native";
 import { ActivityIndicator, Button, List } from "react-native-paper";
 import Header from "../components/Header";
 import { useContext, useEffect, useState } from "react";
@@ -61,21 +68,28 @@ export default function Remedios({ navigation }) {
       tomado: checado,
       id: id,
     };
-    console.log(data);
     await atualizarRemedio(data);
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <Header title="Remédios" />
       <Text style={TextStyle}>Remédios do dia</Text>
-      <View style={{ flex: 1, alignItems: "center", marginTop: 24 }}>
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          marginTop: 24,
+        }}
+      >
         {remediosFilter.length > 0 ? (
           <FlatList
-            data={remedios}
+            style={{ flex: 1, width: "tela" }}
+            data={remediosFilter}
             keyExtractor={(item) => item.key}
             renderItem={({ item }) => (
               <ExibirRemedios
+                key={item.key}
                 medicamento={item.medicamento}
                 horario={item.horario}
                 dosagem={item.dosagem}
