@@ -44,9 +44,9 @@ export default function Exames({ props, navigation }) {
     backgroundColor: "#007AFF",
     borderRadius: 50,
     position: "absolute",
-    bottom: 16,
-    right: 16,
-    padding: 15,
+    top: "345%",
+    right: 8,
+    padding: 8,
   };
 
   if (loading) {
@@ -88,13 +88,13 @@ export default function Exames({ props, navigation }) {
         ) : (
           <Text>Ainda não há nenhum exame cadastrado</Text>
         )}
+      </View>
         <Button
           style={botaoStyle}
           onPress={() => navigation.navigate("ExamesCadastrar")}
         >
           <Text style={{ color: "white", fontSize: 24, paddingTop: 8 }}>+</Text>
         </Button>
-      </View>
     </SafeAreaView>
   );
 }

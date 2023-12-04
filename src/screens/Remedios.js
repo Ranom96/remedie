@@ -54,9 +54,9 @@ export default function Remedios({ navigation }) {
     backgroundColor: "#007AFF",
     borderRadius: 50,
     position: "absolute",
-    bottom: 16,
-    right: 16,
-    padding: 15,
+    top: "345%",
+    right: 8,
+    padding: 8,
   };
   if (loading) {
     return <ActivityIndicator />;
@@ -104,13 +104,14 @@ export default function Remedios({ navigation }) {
           <Text>Ainda não há nenhum remédio cadastrado</Text>
         )}
 
+      </View>
         <Button
           style={botaoStyle}
           onPress={() => navigation.navigate("RemediosCadastrar")}
         >
           <Text style={{ color: "white", fontSize: 24, paddingTop: 8 }}>+</Text>
         </Button>
-      </View>
     </SafeAreaView>
   );
+  
 }
