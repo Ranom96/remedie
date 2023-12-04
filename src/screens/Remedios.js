@@ -113,5 +113,4 @@ export default function Remedios({ navigation }) {
         </Button>
     </SafeAreaView>
   );
-  
 }
