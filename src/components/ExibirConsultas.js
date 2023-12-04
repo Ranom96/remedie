@@ -5,6 +5,7 @@ import {
   Modal,
   TouchableWithoutFeedback,
   View,
+  StyleSheet,
 } from "react-native";
 import { Checkbox } from "react-native-paper";
 import { Button } from "react-native-paper";
@@ -16,31 +17,6 @@ export default function ExibirConsultas(props) {
   const [isChecked, setIsChecked] = useState(props.compareceu ? true : false);
   const [isVisible, setIsVisible] = useState(false);
   const { removerConsulta } = useContext(ConsultasContext);
-
-  const exibirStyle = {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    borderWidth: 1,
-    borderColor: "#007AFF",
-    borderRadius: 10,
-    maxHeight: 120,
-    maxWidth: 300,
-    width: 300,
-    paddingHorizontal: 16,
-    marginTop: 16,
-  };
-
-  const TextStyle = {
-    marginHorizontal: 0,
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-  };
-
-  const checkboxStyle = {
-    marginHorizontal: 16,
-    marginLeft: 16,
-  };
 
   const showModal = () => {
     setIsVisible(true);
@@ -61,20 +37,20 @@ export default function ExibirConsultas(props) {
     hideModal();
   };
   return (
-    <SafeAreaView style={exibirStyle}>
+    <View style={styles.exibirStyle}>
       <Checkbox
-        style={checkboxStyle}
+        style={styles.checkboxStyle}
         label=""
         status={isChecked ? "checked" : "unchecked"}
         onPress={handleCheck}
       />
       <View style={{ flexDirection: "column" }}>
-        <Text style={TextStyle}>{props.especialidade}</Text>
-        <Text style={TextStyle}>{props.medico}</Text>
-        <Text style={TextStyle}>{props.local}</Text>
+        <Text style={styles.TextStyle}>{props.especialidade}</Text>
+        <Text style={styles.TextStyle}>{props.medico}</Text>
+        <Text style={styles.TextStyle}>{props.local}</Text>
         <View style={{ flexDirection: "row" }}>
-          <Text style={TextStyle}>{props.data}</Text>
-          <Text style={TextStyle}>{props.horario}</Text>
+          <Text style={styles.TextStyle}>{props.data}</Text>
+          <Text style={styles.TextStyle}>{props.horario}</Text>
           <TouchableWithoutFeedback onPress={showModal}>
             <View>
               <FontAwesomeIcon
@@ -125,6 +101,32 @@ export default function ExibirConsultas(props) {
           </View>
         </View>
       </Modal>
-    </SafeAreaView>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  exibirStyle: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    borderWidth: 1,
+    borderColor: "#007AFF",
+    borderRadius: 10,
+
+    width: 300,
+    paddingHorizontal: 16,
+    marginTop: 16,
+  },
+
+  TextStyle: {
+    marginHorizontal: 0,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+  },
+
+  checkboxStyle: {
+    marginHorizontal: 16,
+    marginLeft: 16,
+  },
+});
