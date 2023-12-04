@@ -4,7 +4,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
+  getReactNativePersistence,
+  initializeAuth,
 } from "firebase/auth";
 
 export const auth = getAuth(app);
@@ -20,6 +21,7 @@ auth.onAuthStateChanged((user) => {
 export const login = async (email, senha) => {
   try {
     const res = await signInWithEmailAndPassword(auth, email, senha);
+    console.log(res);
     if (res) {
       return res;
     }
