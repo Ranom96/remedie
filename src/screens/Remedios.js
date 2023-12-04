@@ -54,7 +54,7 @@ export default function Remedios({ navigation }) {
     backgroundColor: "#007AFF",
     borderRadius: 50,
     position: "absolute",
-    top: "345%",
+    top: "90%",
     right: 8,
     padding: 8,
   };
