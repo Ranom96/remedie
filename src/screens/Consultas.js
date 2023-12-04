@@ -47,7 +47,7 @@ export default function Consultas({ navigation }) {
     backgroundColor: "#007AFF",
     borderRadius: 50,
     position: "absolute",
-    top: 450,
+    top: "345%",
     right: 8,
     padding: 8,
   };
@@ -92,13 +92,13 @@ export default function Consultas({ navigation }) {
         ) : (
           <Text>Ainda não há nenhuma consulta cadastrada</Text>
         )}
+      </View>
         <Button
           style={botaoStyle}
           onPress={() => navigation.navigate("ConsultasCadastrar")}
         >
           <Text style={{ color: "white", fontSize: 24, paddingTop: 8 }}>+</Text>
         </Button>
-      </View>
     </SafeAreaView>
   );
 }
