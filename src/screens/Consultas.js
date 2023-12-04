@@ -47,9 +47,9 @@ export default function Consultas({ navigation }) {
     backgroundColor: "#007AFF",
     borderRadius: 50,
     position: "absolute",
-    bottom: 16,
-    right: 16,
-    padding: 15,
+    top: 450,
+    right: 8,
+    padding: 8,
   };
 
   if (loading) {
