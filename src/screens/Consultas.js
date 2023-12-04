@@ -67,7 +67,7 @@ export default function Consultas({ navigation }) {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <Header title="Consultas" />
       <Text style={TextStyle}>Suas Consultas</Text>
       <View style={{ flex: 1, alignItems: "center", marginTop: 24 }}>
@@ -77,6 +77,7 @@ export default function Consultas({ navigation }) {
             keyExtractor={(item) => item.key}
             renderItem={({ item }) => (
               <ExibirConsultas
+                key={item.key}
                 especialidade={item.especialidade}
                 data={item.data}
                 local={item.local}

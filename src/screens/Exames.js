@@ -63,7 +63,7 @@ export default function Exames({ props, navigation }) {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <Header title="Exames" />
       <Text style={TextStyle}>Seus Exames</Text>
       <View style={{ flex: 1, alignItems: "center", marginTop: 24 }}>
@@ -73,6 +73,7 @@ export default function Exames({ props, navigation }) {
             keyExtractor={(item) => item.key}
             renderItem={({ item }) => (
               <ExibirExames
+                key={item.key}
                 exame={item.exame}
                 data={item.data}
                 horario={item.horario}
